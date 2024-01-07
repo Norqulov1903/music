@@ -1,15 +1,19 @@
 const inputBox = document.getElementById("input-box");
 const results = document.getElementById("results");
 const audios = document.getElementById("audios");
-const load = document.getElementById("load");
+// const load = document.getElementById("load");
 const btn = document.getElementById("btn");
 const elForm = document.getElementById("form");
+const loading = document.getElementById("preloader")
+loading.style.display = "none";
 btn.onclick = (event) => {
-  load.innerHTML = "Loading..";
-  setTimeout(() => {
-    load.innerHTML = "";
-  }, 2000);
+  // load.innerHTML = "Loading..";
+  // setTimeout(() => {
+  //   load.innerHTML = "";
+  // }, 2000);
+
   event.preventDefault();
+  loading.style.display = "block";
   fetch(`https://spotify81.p.rapidapi.com/download_track?q=${inputBox.value}`, {
     method: "GET",
     headers: {
@@ -30,6 +34,8 @@ btn.onclick = (event) => {
         audios.innerHTML += ` <audio controls src=${item.url}></audio>
           `;
       });
+    })   .finally(function () {
+      loading.style.display = "none";
     });
 
   newresults();
